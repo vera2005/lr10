@@ -56,7 +56,7 @@ func (srv *Server) PutQuery(c echo.Context) error {
 	if len([]rune(nameInput)) > srv.maxSize {
 		return c.String(http.StatusBadRequest, "name too large")
 	}
-	err := srv.uc.ChageQuery(nameInput)
+	err := srv.uc.ChangeQuery(nameInput)
 	if err != nil {
 		if errors.Is(err, vars.ErrAlreadyExist) {
 			return c.String(http.StatusConflict, err.Error())
