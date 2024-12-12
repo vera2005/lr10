@@ -1,7 +1,7 @@
 package usecase
 
 type Provider interface {
-	SelectRandomHello() (string, error)
-	CheckHelloExitByMsg(string) (bool, error)
-	InsertHello(string) error
+	SelectName() (string, error)
+	InsertQuery(string) error
+	UpdateQuery(string) error
 }

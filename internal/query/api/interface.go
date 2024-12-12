@@ -1,6 +1,7 @@
 package api
 
 type Usecase interface {
-	FetchHelloMessage() (string, error)
-	SetHelloMessage(msg string) error
+	FetchQuery() (string, error)
+	SetQuery(name string) error
+	ChageQuery(name string) error
 }
