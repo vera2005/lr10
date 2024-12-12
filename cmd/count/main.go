@@ -24,9 +24,9 @@ func main() {
 	//Инициализация провайдера
 	prv := provider.NewProvider(cfg.DB.Host, cfg.DB.Port, cfg.DB.User, cfg.DB.Password, cfg.DB.DBname)
 	//Инициализация бизнес-логики
-	use := usecase.NewUsecase(cfg.Usecase.DefaultMessage, prv)
+	use := usecase.NewUsecase(cfg.Usecase.DefaultCount, prv)
 	//Инициализация сервера
-	srv := api.NewServer(cfg.IP, cfg.Port, cfg.API.MaxMessageSize, use)
+	srv := api.NewServer(cfg.IP, cfg.Port, cfg.API.MaxNum, use)
 
 	srv.Run()
 }
