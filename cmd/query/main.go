@@ -4,16 +4,16 @@ import (
 	"flag"
 	"log"
 
-	"github.com/ValeryBMSTU/web-10/internal/hello/api"
-	"github.com/ValeryBMSTU/web-10/internal/hello/config"
-	"github.com/ValeryBMSTU/web-10/internal/hello/provider"
-	"github.com/ValeryBMSTU/web-10/internal/hello/usecase"
 	_ "github.com/lib/pq"
+	"github.com/vera2005/lr10/internal/query/api"
+	"github.com/vera2005/lr10/internal/query/config"
+	"github.com/vera2005/lr10/internal/query/provider"
+	"github.com/vera2005/lr10/internal/query/usecase"
 )
 
 func main() {
 	// Считываем аргументы командной строки
-	configPath := flag.String("config-path", "D:\\Go\\lr10\\\\configs\\hello_example.yaml", "путь к файлу конфигурации")
+	configPath := flag.String("config-path", "D:\\Go\\lr10\\\\configs\\query.yaml", "путь к файлу конфигурации")
 	flag.Parse()
 
 	cfg, err := config.LoadConfig(*configPath)
@@ -21,8 +21,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	//Инициализация провайдера
 	prv := provider.NewProvider(cfg.DB.Host, cfg.DB.Port, cfg.DB.User, cfg.DB.Password, cfg.DB.DBname)
+	//Инициализация бизнес-логики
 	use := usecase.NewUsecase(cfg.Usecase.DefaultMessage, prv)
+	//Инициализация сервера
 	srv := api.NewServer(cfg.IP, cfg.Port, cfg.API.MaxMessageSize, use)
 
 	srv.Run()
